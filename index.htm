@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TechSupport Africa</title>
+<meta name="description" content="Send your tech enquiry to TechSupport Africa and get a reply by email.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  /* Layout: slim header, split hero (pitch left, support ticket form right), then a services grid, a 3-step strip and a time-zone strip. */
+  :root {
+    --paper: #EDF1EE;
+    --card: #FFFFFF;
+    --ink: #10261F;
+    --muted: #4D6159;
+    --line: #CBD6D0;
+    --teal: #0B6B5B;
+    --teal-soft: #DCEBE5;
+    --sun: #F2B01E;
+    --sun-ink: #10261F;
+    --bad: #B3261E;
+    --good: #1B7F4B;
+    --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --font-body: "DM Sans", "Segoe UI", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0C1714;
+      --card: #13231E;
+      --ink: #E6EFEA;
+      --muted: #97ABA2;
+      --line: #26403A;
+      --teal: #3CC6A8;
+      --teal-soft: #173229;
+      --bad: #FF8A80;
+      --good: #6FD39A;
+      color-scheme: dark;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 1120px;
+    margin-inline: auto;
+    padding-inline: max(20px, env(safe-area-inset-left, 0px)) max(20px, env(safe-area-inset-right, 0px));
+  }
+  h1, h2, h3 { font-family: var(--font-display); line-height: 1.08; margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  a { color: var(--teal); }
+  :focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; border-radius: 4px; }
+
+  /* Header */
+  header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+  .mark { display: flex; align-items: flex-end; gap: 3px; height: 26px; }
+  .mark i { width: 6px; background: var(--teal); border-radius: 1px; display: block; }
+  .mark i:nth-child(1) { height: 9px; }
+  .mark i:nth-child(2) { height: 16px; }
+  .mark i:nth-child(3) { height: 26px; background: var(--sun); }
+  .brand b { font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; letter-spacing: -0.01em; }
+  .nav-cta {
+    font-weight: 700; font-size: 0.95rem; text-decoration: none; color: var(--ink);
+    border: 2px solid var(--ink); padding: 8px 16px; border-radius: 999px;
+  }
+  .nav-cta:hover { background: var(--ink); color: var(--paper); }
+
+  /* Hero */
+  .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: start; padding-block: 40px 72px; }
+  .hero > * { min-width: 0; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal);
+  }
+  .eyebrow::before { content: ""; width: 28px; height: 2px; background: var(--sun); }
+  .hero h1 { font-size: clamp(2.6rem, 6.2vw, 4.6rem); font-weight: 800; letter-spacing: -0.03em; margin-top: 18px; }
+  .hero h1 em { font-style: normal; background: linear-gradient(transparent 62%, var(--sun) 62% 92%, transparent 92%); padding-inline: 2px; }
+  .lede { margin-top: 22px; max-width: 34em; font-size: 1.15rem; color: var(--muted); }
+  .assure { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 10px; }
+  .assure li { display: flex; gap: 12px; align-items: baseline; font-weight: 500; }
+  .assure li::before { content: ""; flex: none; width: 10px; height: 10px; background: var(--teal); transform: translateY(1px) rotate(45deg); }
+
+  /* Ticket form */
+  .ticket {
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    box-shadow: 8px 8px 0 var(--teal);
+    overflow: hidden;
+  }
+  .ticket-head {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    padding: 14px 22px; background: var(--ink); color: var(--paper);
+    font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .ticket-head .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--sun); margin-right: 8px; }
+  .ticket-body { padding: 26px 22px 24px; }
+  .ticket h2 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.02em; }
+  .ticket .sub { margin-top: 6px; color: var(--muted); font-size: 0.98rem; }
+  form { margin-top: 22px; display: grid; gap: 18px; }
+  .field { display: grid; gap: 7px; }
+  label { font-weight: 700; font-size: 0.95rem; }
+  input, textarea {
+    width: 100%; font: inherit; color: var(--ink); background: var(--paper);
+    border: 2px solid var(--line); border-radius: 4px; padding: 12px 14px;
+  }
+  textarea { min-height: 150px; resize: vertical; }
+  input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.75; }
+  input:hover, textarea:hover { border-color: var(--muted); }
+  input:focus, textarea:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-soft); }
+  .field.invalid input, .field.invalid textarea { border-color: var(--bad); }
+  .err { min-height: 1.2em; color: var(--bad); font-size: 0.88rem; font-weight: 500; }
+  button {
+    font: inherit; font-weight: 700; font-size: 1.05rem; cursor: pointer;
+    background: var(--sun); color: var(--sun-ink);
+    border: 2px solid var(--ink); border-radius: 4px; padding: 14px 20px;
+    display: flex; justify-content: center; align-items: center; gap: 10px;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  button:hover:not(:disabled) { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); }
+  button:active:not(:disabled) { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+  button:disabled { cursor: progress; opacity: 0.7; }
+  .spinner { width: 16px; height: 16px; border: 2px solid var(--sun-ink); border-right-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; }
+  .spinner[hidden] { display: none; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .status { border-radius: 4px; padding: 14px 16px; font-weight: 500; border: 2px solid; }
+  .status[hidden] { display: none; }
+  .status.ok { border-color: var(--good); color: var(--good); background: var(--teal-soft); }
+  .status.fail { border-color: var(--bad); color: var(--bad); }
+  .status strong { display: block; font-family: var(--font-display); font-size: 1.1rem; }
+
+  /* Sections */
+  section { padding-block: 64px; border-top: 2px solid var(--line); }
+  .section-head { display: grid; gap: 10px; max-width: 36em; margin-bottom: 36px; }
+  .section-head h2 { font-size: clamp(1.9rem, 4vw, 2.7rem); font-weight: 800; letter-spacing: -0.025em; }
+  .section-head p { color: var(--muted); }
+
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: 2px solid var(--ink); border-radius: 6px; background: var(--card); }
+  .grid article { padding: 26px 24px 28px; border-right: 2px solid var(--line); border-bottom: 2px solid var(--line); }
+  .grid article:nth-child(3n) { border-right: 0; }
+  .grid article:nth-child(n+4) { border-bottom: 0; }
+  .grid h3 { font-size: 1.25rem; font-weight: 800; }
+  .grid p { margin-top: 8px; color: var(--muted); font-size: 0.98rem; }
+  .tag { display: inline-block; margin-bottom: 14px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; background: var(--teal-soft); color: var(--teal); padding: 3px 8px; border-radius: 3px; }
+
+  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; counter-reset: s; padding: 0; margin: 0; list-style: none; }
+  .steps li { counter-increment: s; border-top: 4px solid var(--teal); padding-top: 16px; }
+  .steps li::before { content: "0" counter(s); font-family: var(--font-mono); color: var(--teal); font-size: 0.85rem; }
+  .steps h3 { font-size: 1.3rem; font-weight: 800; margin-top: 6px; }
+  .steps p { margin-top: 8px; color: var(--muted); }
+
+  .clocks { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .clock { background: var(--card); border: 2px solid var(--line); border-radius: 6px; padding: 18px 18px 16px; }
+  .clock .t { font-family: var(--font-mono); font-size: 2rem; font-weight: 500; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .clock .c { font-weight: 700; margin-top: 4px; }
+  .clock .r { color: var(--muted); font-size: 0.88rem; }
+
+  footer { border-top: 2px solid var(--ink); }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-block: 26px; color: var(--muted); font-size: 0.92rem; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: 44px; padding-block: 24px 56px; }
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid article:nth-child(3n) { border-right: 2px solid var(--line); }
+    .grid article:nth-child(2n) { border-right: 0; }
+    .grid article:nth-child(n+4) { border-bottom: 2px solid var(--line); }
+    .grid article:nth-child(n+5) { border-bottom: 0; }
+    .clocks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 620px) {
+    body { font-size: 16px; }
+    .steps { grid-template-columns: 1fr; }
+    .grid { grid-template-columns: 1fr; }
+    .grid article, .grid article:nth-child(n) { border-right: 0; border-bottom: 2px solid var(--line); }
+    .grid article:last-child { border-bottom: 0; }
+    .ticket { box-shadow: 5px 5px 0 var(--teal); }
+    .ticket-body { padding: 22px 16px 20px; }
+    .clock .t { font-size: 1.6rem; }
+    section { padding-block: 48px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; animation-duration: 1.5s !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="TechSupport Africa home">
+      <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <b>TechSupport Africa</b>
+    </a>
+    <a class="nav-cta" href="#enquiry">Send an enquiry</a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <span class="eyebrow">IT help for Africa</span>
+      <h1>Something not working? <em>Tell us.</em></h1>
+      <p class="lede">Describe the problem in your own words. A support technician reads every enquiry and replies to you by email.</p>
+      <ul class="assure">
+        <li>No account or sign-up needed</li>
+        <li>Three short fields: your name, your email and your enquiry</li>
+        <li>Phones, laptops, Wi-Fi, email, data and business systems</li>
+      </ul>
+    </div>
+
+    <div class="ticket" id="enquiry">
+      <div class="ticket-head"><span><span class="dot"></span>New enquiry</span><span>Support desk</span></div>
+      <div class="ticket-body">
+        <h2>How can we help?</h2>
+        <p class="sub">Include what you were doing and what went wrong. The more detail, the faster the fix.</p>
+
+        <form id="enquiry-form" novalidate>
+          <div class="field" data-field="name">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" placeholder="Amina Okafor" maxlength="120" required>
+            <span class="err" id="name-err" aria-live="polite"></span>
+          </div>
+          <div class="field" data-field="email">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="amina@example.com" maxlength="200" required>
+            <span class="err" id="email-err" aria-live="polite"></span>
+          </div>
+          <div class="field" data-field="enquiry">
+            <label for="enquiry-text">Enquiry</label>
+            <textarea id="enquiry-text" name="enquiry" placeholder="My laptop shows a black screen after the Windows logo since this morning..." maxlength="3000" required></textarea>
+            <span class="err" id="enquiry-err" aria-live="polite"></span>
+          </div>
+
+          <button type="submit" id="submit-btn"><span class="spinner" id="spinner" hidden></span><span id="btn-label">Send enquiry</span></button>
+
+          <div class="status ok" id="ok" role="status" hidden>
+            <strong>Enquiry sent</strong>
+            Thank you. We will reply to the email address you gave us.
+          </div>
+          <div class="status fail" id="fail" role="alert" hidden>
+            <strong>We could not send your enquiry</strong>
+            <span id="fail-msg">Check your connection and press Send enquiry again.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <section id="help">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What we can help with</h2>
+        <p>If it has a screen, a cable or a password, send it our way.</p>
+      </div>
+      <div class="grid">
+        <article><span class="tag">Devices</span><h3>Laptops, desktops and phones</h3><p>Slow, frozen, cracked, infected or will not switch on.</p></article>
+        <article><span class="tag">Connectivity</span><h3>Internet and Wi-Fi</h3><p>Weak signal, dropped connections and router or modem setup.</p></article>
+        <article><span class="tag">Accounts</span><h3>Email and passwords</h3><p>Locked out, hacked or moving to a new email address.</p></article>
+        <article><span class="tag">Data</span><h3>Backup and recovery</h3><p>Lost files, failing drives and a backup plan that works.</p></article>
+        <article><span class="tag">Business</span><h3>Small business IT</h3><p>Office networks, shared printers and software for your team.</p></article>
+        <article><span class="tag">Security</span><h3>Scams and safe use</h3><p>Suspicious messages, fake alerts and protecting your accounts.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>How an enquiry is handled</h2>
+        <p>From your message to a fix, in the order it happens.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>You send the form</h3><p>Name, email and a description of the problem. That is all we ask for.</p></li>
+        <li><h3>We read it</h3><p>A technician reviews your enquiry and works out what is needed.</p></li>
+        <li><h3>We reply by email</h3><p>You get an answer or a next step at the address you provided.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="time">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>One continent, four time zones</h2>
+        <p>Local time right now across Africa, so you know when your message lands.</p>
+      </div>
+      <div class="clocks" aria-label="Current local times">
+        <div class="clock"><div class="t" data-tz="Africa/Lagos">--:--</div><div class="c">Lagos</div><div class="r">West Africa</div></div>
+        <div class="clock"><div class="t" data-tz="Africa/Cairo">--:--</div><div class="c">Cairo</div><div class="r">North Africa</div></div>
+        <div class="clock"><div class="t" data-tz="Africa/Johannesburg">--:--</div><div class="c">Johannesburg</div><div class="r">Southern Africa</div></div>
+        <div class="clock"><div class="t" data-tz="Africa/Nairobi">--:--</div><div class="c">Nairobi</div><div class="r">East Africa</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; <span id="year">2026</span> TechSupport Africa</span>
+    <span>Replies are sent by email.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // The n8n webhook that receives each enquiry (the space in the path is URL-encoded).
+  // While testing, n8n only listens on this "webhook-test" URL after you press "Listen for test event".
+  // For live use, activate the workflow and change "webhook-test" to "webhook".
+  var WEBHOOK_URL = "https://essywhite.app.n8n.cloud/webhook-test/customer%20enquiry";
+
+  var form = document.getElementById("enquiry-form");
+  var btn = document.getElementById("submit-btn");
+  var label = document.getElementById("btn-label");
+  var spinner = document.getElementById("spinner");
+  var okBox = document.getElementById("ok");
+  var failBox = document.getElementById("fail");
+  var failMsg = document.getElementById("fail-msg");
+
+  var fields = {
+    name: { el: document.getElementById("name"), err: document.getElementById("name-err") },
+    email: { el: document.getElementById("email"), err: document.getElementById("email-err") },
+    enquiry: { el: document.getElementById("enquiry-text"), err: document.getElementById("enquiry-err") }
+  };
+
+  function setError(key, message) {
+    var f = fields[key];
+    f.err.textContent = message || "";
+    f.el.closest(".field").classList.toggle("invalid", !!message);
+    if (message) { f.el.setAttribute("aria-invalid", "true"); } else { f.el.removeAttribute("aria-invalid"); }
+  }
+
+  function validate() {
+    var v = {
+      name: fields.name.el.value.trim(),
+      email: fields.email.el.value.trim(),
+      enquiry: fields.enquiry.el.value.trim()
+    };
+    var firstBad = null;
+    var bad = {};
+    if (v.name.length < 2) bad.name = "Please enter your name.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email)) bad.email = "Please enter a valid email address, like name@example.com.";
+    if (v.enquiry.length < 10) bad.enquiry = "Please describe your enquiry in at least a sentence.";
+    ["name", "email", "enquiry"].forEach(function (k) {
+      setError(k, bad[k]);
+      if (bad[k] && !firstBad) firstBad = k;
+    });
+    if (firstBad) { fields[firstBad].el.focus(); return null; }
+    return v;
+  }
+
+  ["name", "email", "enquiry"].forEach(function (k) {
+    fields[k].el.addEventListener("input", function () { setError(k, ""); });
+  });
+
+  function setBusy(busy) {
+    btn.disabled = busy;
+    spinner.hidden = !busy;
+    label.textContent = busy ? "Sending..." : "Send enquiry";
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    okBox.hidden = true;
+    failBox.hidden = true;
+
+    var data = validate();
+    if (!data) return;
+
+    setBusy(true);
+    fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: data.name, email: data.email, enquiry: data.enquiry })
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        form.reset();
+        okBox.hidden = false;
+        okBox.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      })
+      .catch(function (err) {
+        failMsg.textContent = (err && /HTTP 404/.test(err.message))
+          ? "The enquiry service is not accepting messages right now. Please try again shortly."
+          : "Check your connection and press Send enquiry again. Your message is still in the form.";
+        failBox.hidden = false;
+      })
+      .then(function () { setBusy(false); });
+  });
+
+  // Local times
+  function tick() {
+    document.querySelectorAll("[data-tz]").forEach(function (n) {
+      try {
+        n.textContent = new Intl.DateTimeFormat("en-GB", {
+          hour: "2-digit", minute: "2-digit", hour12: false, timeZone: n.getAttribute("data-tz")
+        }).format(new Date());
+      } catch (e) { n.textContent = "--:--"; }
+    });
+  }
+  tick();
+  setInterval(tick, 20000);
+  document.getElementById("year").textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
